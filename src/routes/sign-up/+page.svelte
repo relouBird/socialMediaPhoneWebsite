@@ -27,7 +27,7 @@
 					<SubmitButton name={'Sign Up'} handleClick={()=>{}} />
 				</form>
 			</div>
-			<div>
+			<div class="fixed min-w-[260px] sm:fixed sm:bottom-[42px] bottom-[58px] left-[50%] -translate-x-[50%]">
 				<p class="text-center">Already have any account ? <a href="/">Sign In</a></p>
 			</div>
 		</div>
