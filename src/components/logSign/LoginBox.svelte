@@ -67,7 +67,7 @@
   {#if onsignup === true}
     <div class="w-full h-10 mt-5 relative">
       <div class="absolute left-[4%] top-[50%] -translate-y-[40%]">
-        <BackButton link={"/"} />
+        <BackButton link={"/Auth/Login"} />
       </div>
       <p class="text-3xl text-white text-center pt-0.5">Sign Up</p>
     </div>

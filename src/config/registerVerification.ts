@@ -1,4 +1,4 @@
-export const connectionVerification = (type: string, value: string) : [boolean,string] => {
+export const registerVerification = (type: string, value: string) : [boolean,string] => {
   if (type === "First name") {
     if(value === ""){
         return [false, "*is empty"]
