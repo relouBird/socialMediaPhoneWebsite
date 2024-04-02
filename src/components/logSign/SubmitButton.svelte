@@ -4,7 +4,7 @@
   export let handleClick: MouseEventHandler<HTMLButtonElement>;
 </script>
 
-<div class="mt-6">
+<div class="mt-3">
   <button
     on:click|preventDefault={handleClick}
     class="w-full pt-1.5 pb-2.5 text-center text-[16px] text-white rounded-md rounded-tr-none bg-blackslow"

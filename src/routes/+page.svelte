@@ -3,8 +3,15 @@
   import LoginBox from "../components/logSign/LoginBox.svelte";
   import SubmitButton from "../components/logSign/SubmitButton.svelte";
   import ConnexionInput from "../components/logSign/ConnexionInput.svelte";
+  import { loginHardData } from "$lib/Data/hardData";
+  import { connectionVerification } from "../config/connnectionVerification";
+
+  let inputBoxData = loginHardData;
 
   let loginData: string[] = ["", ""];
+  let bins : [boolean,string][] = [] ;
+  let affiche : [boolean,string][];
+  $:  affiche = Array.from({ length: inputBoxData.length }, () => [true, ""]);
 </script>
 
 <svelte:head>
@@ -19,16 +26,37 @@
   >
     <h2 class="text-center font-medium text-blackslow text-2xl">Login</h2>
     <div class="w-full h-[82.5%] flex flex-col justify-between">
-      <div class="pt-[14%]">
+      <div class="pt-[10%]">
         <form action="">
-          <ConnexionInput
-            name={"Email"}
-            placeholder={"reloubird@gmail.com"}
-            value={loginData[0]}
-          />
-          <ConnexionInput name={"Password"} value={loginData[1]} isPassword />
+          {#each inputBoxData as data, i}
 
-          <SubmitButton name={"Login"} handleClick={() => {}} />
+            
+            <div class="relative py-1">
+              <ConnexionInput
+                name={data.name}
+                placeholder={data.placeholder}
+                isPassword={data.isPassword}
+                bind:val={loginData[i]}
+              />
+              {#if affiche[i][0]}
+               <p class="absolute"></p>
+              {:else}
+              <p class="absolute -bottom-4 text-red-400 pl-2 font-medium text-[12.5px]">{affiche[i][1]}</p>
+              {/if}
+            </div>
+          {/each}
+
+          <div class="pt-6">
+            <SubmitButton name={"Login"} handleClick={() => {
+              for(let i = 0; i< loginHardData.length; i++){
+                bins.push(connectionVerification(loginHardData[i].name,loginData[i]))
+              }
+              bins = bins;
+              affiche = bins;
+              console.log(affiche)
+              bins = [];
+            }} />
+          </div>
         </form>
       </div>
       <div
