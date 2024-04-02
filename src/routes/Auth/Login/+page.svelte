@@ -3,6 +3,7 @@
   import SubmitButton from "../../../components/logSign/SubmitButton.svelte";
   import ConnexionInput from "../../../components/logSign/ConnexionInput.svelte";
   import { loginHardData } from "$lib/Data/hardData";
+  import {connectUser} from "$lib/Data/firebase"
   import { loginVerification } from "../../../config/loginVerification";
   import { logValid } from "../../../config/connectedVerification";
 
@@ -57,13 +58,12 @@
               affiche = bins;
               for(let i = 0; i< affiche.length-1; i++){
                 container.push(affiche[i][0]);
-                datas.push(affiche[i][1]);
+                datas.push(loginData[i]);
               }
               if(container.includes(false)){
                 console.log('something is wrong')
               } else {
-                logValid();
-                window.location.assign('/Other');
+                connectUser(datas[0],datas[1])
               }
               bins = [];
             }} />

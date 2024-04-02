@@ -5,6 +5,7 @@
   import { registerHardData } from "$lib/Data/hardData";
   import { registerVerification } from "../../../config/registerVerification";
   import { logValid } from "../../../config/connectedVerification";
+  import { createUser } from "$lib/Data/firebase";
 
   type bolLikeThat = boolean[];
   let inputBoxData = registerHardData;
@@ -58,14 +59,14 @@
               console.log(affiche)
               for(let i = 0; i< affiche.length-1; i++){
                 container.push(affiche[i][0]);
-                datas.push(affiche[i][1]);
+                datas.push(registerData[i]);
               }
               if(container.includes(false)){
-                console.log('something is wrong')
+                console.log('ça a cuit')
               } else {
-                window.location.assign('/Other')
+                createUser(datas[2],datas[3],datas[0], datas[1])
               }
-              logValid();
+              
               bins = [];
             }} />
           </div>
