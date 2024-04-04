@@ -4,8 +4,7 @@
   import SubmitButton from "../../../components/logSign/SubmitButton.svelte"
   import { registerHardData } from "$lib/Data/hardData";
   import { registerVerification } from "../../../config/registerVerification";
-  import { logValid } from "../../../config/connectedVerification";
-  import { createUser } from "$lib/Data/firebase";
+  import { createUser } from "$lib/Data/registerRequest";
 
   type bolLikeThat = boolean[];
   let inputBoxData = registerHardData;

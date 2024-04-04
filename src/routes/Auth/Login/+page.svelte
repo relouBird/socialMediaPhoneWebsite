@@ -3,7 +3,7 @@
   import SubmitButton from "../../../components/logSign/SubmitButton.svelte";
   import ConnexionInput from "../../../components/logSign/ConnexionInput.svelte";
   import { loginHardData } from "$lib/Data/hardData";
-  import {connectUser} from "$lib/Data/firebase"
+  import { connectUser } from "$lib/Data/loginRequest";
   import { loginVerification } from "../../../config/loginVerification";
   import { logValid } from "../../../config/connectedVerification";
 
