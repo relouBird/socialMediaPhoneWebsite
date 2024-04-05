@@ -17,7 +17,7 @@ export const connectUser = (email: string, password: string) => {
     .then((userCredential) => {
       if (userCredential.user.emailVerified) {
         if (typeof window !== "undefined") {
-          alert('connexion reussie')
+          console.log('connexion reussie')
           logValid()
           window.location.assign(ROUTES.home);
         }
