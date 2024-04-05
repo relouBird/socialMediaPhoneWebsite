@@ -9,7 +9,7 @@
   <meta name="description" content="Svelte demo app" />
 </svelte:head>
 
-<section class="w-full h-full sm:h-full overflow-hidden">
+<section class="w-full h-full sm:h-full bg-white overflow-hidden">
   <div>home page</div>
   <button on:click={()=>{
     deconnexion()

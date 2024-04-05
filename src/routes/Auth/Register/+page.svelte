@@ -23,7 +23,7 @@
   <meta name="description" content="Svelte demo app" />
 </svelte:head>
 
-<section class="w-full sm:h-full overflow-hidden">
+<section class="w-full h-full sm:h-full overflow-hidden">
   <LoginBox onsignup={true} />
 
   <div
@@ -73,7 +73,7 @@
         </form>
       </div>
       <div
-        class="fixed min-w-[260px] sm:fixed sm:bottom-[42px] bottom-[58px] left-[50%] -translate-x-[50%]"
+        class="fixed min-w-[260px] sm:fixed sm:bottom-[42px] bottom-[18px] left-[50%] -translate-x-[50%]"
       >
         <p class="text-center">
           Already have any account ? <a class="underline" href={ROUTES.login}>Sign In</a>

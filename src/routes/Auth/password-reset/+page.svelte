@@ -17,7 +17,7 @@
 
 <section class="w-full h-full flex justify-center items-center">
   <GlobalVerification>
-    <div class="w-[85%] z-10 flex flex-col text-white/80 gap-2 h-[80%]">
+    <div class="w-[85%] z-10 flex flex-col text-white/80 gap-2 h-[89.5%]">
       <div class="relative">
         <div class="absolute bottom-0.5">
             <BackButton link={ROUTES.login} small />
