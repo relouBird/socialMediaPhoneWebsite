@@ -5,5 +5,9 @@ export  const ROUTES = {
     login : "/Auth/Login",
     verification : "/Auth/Email-verification",
     passwordReset : "/Auth/Password-reset",
-    other : "/Other"
+    other : "/Other",
+    profile : "/Profile",
+    friends : "/Friends",
+    videos : "/Videos",
+    post_creation: "/Post-creation",
 }
