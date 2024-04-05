@@ -23,7 +23,7 @@
   <meta name="description" content="Svelte demo app" />
 </svelte:head>
 
-<section class="w-full h-[93%] sm:h-full overflow-hidden">
+<section class="w-full h-full sm:h-full overflow-hidden">
   <LoginBox onsignup={false} />
   <div
     class="w-full h-[75%] rounded-tl-[80px] -translate-y-[15%] pt-10 px-8 bg-white z-10"

@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { deconnexion } from "../config/connectedVerification";
+
   
 </script>
 
@@ -7,4 +9,9 @@
   <meta name="description" content="Svelte demo app" />
 </svelte:head>
 
-<div>Home Page</div>
+<section class="w-full h-full sm:h-full overflow-hidden">
+  <div>home page</div>
+  <button on:click={()=>{
+    deconnexion()
+  }}>Deconnexion</button>
+</section>
