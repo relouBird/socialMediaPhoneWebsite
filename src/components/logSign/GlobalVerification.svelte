@@ -1,14 +1,15 @@
 <script lang="ts">
-  import { ROUTES } from "../../config/route";
-  import BackButton from "./BackButton.svelte";
-
-  export let onsignup: boolean;
+  import type { MouseEventHandler } from "svelte/elements";
+  export let sms: string = "";
+  // export let email: string;
+  // export let resend: MouseEventHandler<HTMLButtonElement> ;
+  // export let confirm: MouseEventHandler<HTMLButtonElement>;
 </script>
 
 <div
-  class={`w-full h-[40%] flex relative justify-center ${onsignup === true ? "" : "items-center"} bg-black/90 z-0`}
+  class={`w-[85%] h-[42%] sm:w-[60%] rounded sm:h-[50%] flex flex-col relative justify-center ${sms !== "" ? "gap-12" : "gap-16"} items-center shadow-lg bg-black/90 z-0`}
 >
-  <div class="z-0 absolute bottom-10 right-0 rotate-45">
+  <div class="z-0 max-sm:scale-75 absolute bottom-5 right-5 rotate-45">
     <svg
       width="145"
       height="145"
@@ -22,7 +23,7 @@
       />
     </svg>
   </div>
-  <div class="z-0 absolute top-5 left-0">
+  <div class="z-0 max-sm:scale-75 absolute top-5 left-5">
     <svg
       width="90"
       height="90"
@@ -36,7 +37,7 @@
       />
     </svg>
   </div>
-  <div class="z-0 absolute -top-4 right-20 rotate-12">
+  <div class="z-0 absolute max-sm:scale-75 top-2 right-10 rotate-12">
     <svg
       width="110"
       height="110"
@@ -50,7 +51,9 @@
       />
     </svg>
   </div>
-  <div class="z-0 absolute right-[50%] top-[15%] -rotate-[18deg]">
+  <div
+    class="z-0 absolute max-sm:scale-75 right-[50%] top-[30%] -rotate-[18deg]"
+  >
     <svg
       width="130"
       height="130"
@@ -65,29 +68,5 @@
     </svg>
   </div>
 
-  {#if onsignup === true}
-    <div class="w-full h-10 mt-5 relative">
-      <div class="absolute left-[4%] top-[50%] -translate-y-[40%]">
-        <BackButton link={ROUTES.login} />
-      </div>
-      <p class="text-3xl text-white text-center pt-0.5">Sign Up</p>
-    </div>
-  {:else}
-    <div
-      class="w-[55px] h-[55px] bg-white -translate-y-[50%] flex justify-center items-center rounded z-10"
-    >
-      <svg
-        width="36"
-        height="36"
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M16 2H8C4.691 2 2 4.691 2 8V21C2 21.2652 2.10536 21.5196 2.29289 21.7071C2.48043 21.8946 2.73478 22 3 22H16C19.309 22 22 19.309 22 16V8C22 4.691 19.309 2 16 2Z"
-          fill="black"
-        />
-      </svg>
-    </div>
-  {/if}
+  <slot />
 </div>

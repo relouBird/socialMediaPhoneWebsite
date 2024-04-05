@@ -1,14 +1,15 @@
 <script lang="ts">
-  import { ROUTES } from "../../config/route";
-  import BackButton from "./BackButton.svelte";
-
-  export let onsignup: boolean;
+  import type { MouseEventHandler } from "svelte/elements";
+  export let email: string;
+  export let sms : string = "";
+  export let resend: MouseEventHandler<HTMLButtonElement> ;
+  export let confirm: MouseEventHandler<HTMLButtonElement>;
 </script>
 
 <div
-  class={`w-full h-[40%] flex relative justify-center ${onsignup === true ? "" : "items-center"} bg-black/90 z-0`}
+  class={`w-[85%] h-[36%] sm:w-[60%] rounded sm:h-[50%] flex flex-col relative justify-center ${sms !== "" ? "gap-12": "gap-16"} items-center shadow-lg pb-5 pt-8 bg-black/90 z-0`}
 >
-  <div class="z-0 absolute bottom-10 right-0 rotate-45">
+  <div class="z-0 max-sm:scale-75 absolute bottom-5 right-5 rotate-45">
     <svg
       width="145"
       height="145"
@@ -22,7 +23,7 @@
       />
     </svg>
   </div>
-  <div class="z-0 absolute top-5 left-0">
+  <div class="z-0 max-sm:scale-75 absolute top-5 left-5">
     <svg
       width="90"
       height="90"
@@ -36,7 +37,7 @@
       />
     </svg>
   </div>
-  <div class="z-0 absolute -top-4 right-20 rotate-12">
+  <div class="z-0 absolute max-sm:scale-75 top-2 right-10 rotate-12">
     <svg
       width="110"
       height="110"
@@ -50,7 +51,9 @@
       />
     </svg>
   </div>
-  <div class="z-0 absolute right-[50%] top-[15%] -rotate-[18deg]">
+  <div
+    class="z-0 absolute max-sm:scale-75 right-[50%] top-[30%] -rotate-[18deg]"
+  >
     <svg
       width="130"
       height="130"
@@ -65,15 +68,30 @@
     </svg>
   </div>
 
-  {#if onsignup === true}
-    <div class="w-full h-10 mt-5 relative">
-      <div class="absolute left-[4%] top-[50%] -translate-y-[40%]">
-        <BackButton link={ROUTES.login} />
-      </div>
-      <p class="text-3xl text-white text-center pt-0.5">Sign Up</p>
+  <div class="z-10 -translate-x-1.5 text-center">
+    <p class="text-white/80">Verification Code Sent.</p>
+    <p class="text-[12.5px] text-white/40 mt-3 px-7">
+      We have send the verification link to valid to your email <span
+        class="text-white/80 underline">{email}</span
+      > what you have write on the register page... please verify it to continue.
+    </p>
+    {#if sms !== ""}
+      <p class="text-[12.5px] text-white/80">{sms}</p>
+    {/if}
+  </div>
+  <form action="">
+    <div class="-translate-x-1.5 scale-90 space-x-3">
+      <button
+        on:click|preventDefault={resend}
+        class="text-white px-6 pt-1 pb-2 rounded bg-white/20">Re-send</button
+      >
+      <button
+        on:click|preventDefault={confirm}
+        class="text-white px-6 pt-1 pb-2 rounded bg-white/20">Confirm</button
+      >
     </div>
-  {:else}
-    <div
+  </form>
+  <!-- <div
       class="w-[55px] h-[55px] bg-white -translate-y-[50%] flex justify-center items-center rounded z-10"
     >
       <svg
@@ -88,6 +106,5 @@
           fill="black"
         />
       </svg>
-    </div>
-  {/if}
+    </div> -->
 </div>

@@ -17,6 +17,27 @@ export const loginHardData: loginHardDataProps[] = [
   },
 ];
 
+export const resetPasswordHardData: loginHardDataProps[] = [
+  {
+    name: "Password",
+    placeholder: "",
+    isPassword: true,
+  },
+  {
+    name: "Confirm password",
+    placeholder: "",
+    isPassword: true,
+  },
+]
+
+export const resetPasswordEmailHardData: loginHardDataProps[] = [
+  {
+    name: "Email",
+    placeholder: "reloubird@gmail.com",
+    isPassword: false,
+  },
+]
+
 export const registerHardData: loginHardDataProps[] = [
   {
     name: "First name",

@@ -4,8 +4,8 @@
   import SubmitButton from "../../../components/logSign/SubmitButton.svelte"
   import { registerHardData } from "$lib/Data/hardData";
   import { registerVerification } from "../../../config/registerVerification";
-  import { logValid } from "../../../config/connectedVerification";
-  import { createUser } from "$lib/Data/firebase";
+  import { createUser } from "$lib/Data/registerRequest";
+  import { ROUTES } from "../../../config/route";
 
   type bolLikeThat = boolean[];
   let inputBoxData = registerHardData;
@@ -19,7 +19,7 @@
 </script>
 
 <svelte:head>
-  <title>Login</title>
+  <title>Register - JetSlide</title>
   <meta name="description" content="Svelte demo app" />
 </svelte:head>
 
@@ -76,7 +76,7 @@
         class="fixed min-w-[260px] sm:fixed sm:bottom-[42px] bottom-[58px] left-[50%] -translate-x-[50%]"
       >
         <p class="text-center">
-          Already have any account ? <a href="/Auth/Login">Sign In</a>
+          Already have any account ? <a class="underline" href={ROUTES.login}>Sign In</a>
         </p>
       </div>
     </div>
