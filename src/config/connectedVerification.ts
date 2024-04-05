@@ -1,6 +1,7 @@
 let isAuthenticated: boolean = false;
 import { ROUTES } from "./route";
 
+
 export const logValid = (verify: boolean = false) => {
   let boolWindow: boolean = typeof window !== "undefined";
   if (!verify) {
@@ -16,6 +17,7 @@ export const logValid = (verify: boolean = false) => {
     }
   }
 };
+
 
 export const connectedVerification = () => {
   if (typeof window !== "undefined") {
@@ -43,5 +45,15 @@ export const deconnexion = () =>{
   if (typeof window !== "undefined") {
     window.localStorage.clear();
     window.location.assign(ROUTES.login);
+  }
+}
+
+
+export const isConnected = () => {
+  if (typeof window !== "undefined") {
+    if(window.localStorage.getItem('token') !== null){
+      return true;
+    }
+    return false;
   }
 }

@@ -41,7 +41,7 @@ export const createUser = (
     .then(async () => {
       try {
         const docRef = await addDoc(collection(database, "users"), userData);
-        alert("data fetch " + userData.Email);
+        console.log("data fetch " + userData.Email);
       } catch (error) {
         console.log("Erreur : " + error);
       }
@@ -61,7 +61,7 @@ export const createUser = (
     .catch((error) => {
       var errorCode = error.code;
       var errorMessage = error.message;
-      alert(errorMessage + ", De type :" + errorCode);
+      console.log(errorMessage + ", De type :" + errorCode);
       // ..
     });
 };
