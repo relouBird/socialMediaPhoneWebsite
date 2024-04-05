@@ -15,5 +15,24 @@
   }
 .scrollbar-per:hover::-webkit-scrollbar-thumb {
     border-radius: 7px;
-    background-color: rgba(0, 0, 0, 0.35);
+    background-color: rgba(0, 0, 0, 0.3);
   }
+
+
+.navbar-effect {
+  height: calc(100% - 3.5em);
+  background-color: white;
+}
+.navbar-effect::-webkit-scrollbar {
+  width: 6px;
+  background-color: transparent;
+}
+
+.navbar-effect::-webkit-scrollbar-thumb {
+  border-radius: 7px;
+  background-color: transparent;
+}
+.navbar-effect:hover::-webkit-scrollbar-thumb {
+  border-radius: 7px;
+  background-color: rgba(0, 0, 0, 0.35);
+}

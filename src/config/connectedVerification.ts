@@ -57,3 +57,13 @@ export const isConnected = () => {
     return false;
   }
 }
+
+
+export const useNavBar = () =>{
+  if(typeof window !== "undefined"){
+    if(window.location.pathname.includes('/Auth')){
+      return false;
+    }
+    return true
+  }
+}

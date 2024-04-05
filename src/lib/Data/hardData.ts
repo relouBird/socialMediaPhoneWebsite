@@ -1,8 +1,7 @@
-interface loginHardDataProps {
-  name: string;
-  placeholder: string;
-  isPassword: boolean;
-}
+import type { loginHardDataProps, navbarDataProps } from "$lib/types/hardDataType";
+import { ROUTES } from "../../config/route";
+
+
 
 export const loginHardData: loginHardDataProps[] = [
   {
@@ -17,18 +16,7 @@ export const loginHardData: loginHardDataProps[] = [
   },
 ];
 
-export const resetPasswordHardData: loginHardDataProps[] = [
-  {
-    name: "Password",
-    placeholder: "",
-    isPassword: true,
-  },
-  {
-    name: "Confirm password",
-    placeholder: "",
-    isPassword: true,
-  },
-]
+
 
 export const resetPasswordEmailHardData: loginHardDataProps[] = [
   {
@@ -65,3 +53,31 @@ export const registerHardData: loginHardDataProps[] = [
     isPassword: true,
   },
 ];
+
+let w : string = "";
+if(typeof window !== "undefined"){
+ w = window.location.pathname;
+}
+
+export const navbarData : navbarDataProps[] = [
+  {
+    name: "Home",
+    link: ROUTES.home,
+  },
+  {
+    name: "Users",
+    link: ROUTES.friends,
+  },
+  {
+    name: "Videos",
+    link: ROUTES.videos,
+  },
+  {
+    name: "Create",
+    link: ROUTES.post_creation,
+  },
+  {
+    name: "Profile",
+    link: ROUTES.profile,
+  },
+]
