@@ -9,6 +9,7 @@ import { addDoc, collection } from "firebase/firestore";
 // autres importations
 import { logValid } from "../../config/connectedVerification";
 import type { user, userDataProps } from "$lib/types/userType";
+import { ROUTES } from "../../config/route";
 
 // definition de variables utiles
 let userData: userDataProps;
@@ -47,14 +48,14 @@ export const createUser = (
       sendEmailVerification(auth.currentUser as user).then((res) => {
         if (typeof window !== "undefined") {
           logValid();
-          window.location.assign("/Auth/Email-verification");
+          window.location.assign(ROUTES.verification);
         }
       });
     })
     .then(() => {
       //   logValid();
       //   if (typeof window !== "undefined") {
-      //     window.location.assign("/");
+      //     window.location.assign(ROUTES.home);
       //   }
     })
     .catch((error) => {

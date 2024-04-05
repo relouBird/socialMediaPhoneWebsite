@@ -2,22 +2,15 @@
 import { auth } from "./firebaseInit";
 import { onAuthStateChanged, sendEmailVerification } from "@firebase/auth";
 
+// importations des routes
+import { ROUTES } from "../../config/route";
+
+// types import
 import type { user } from "$lib/types/userType";
+import { logValid } from "../../config/connectedVerification";
 
+// definir les variables utiles
 const user = auth.currentUser;
-
-// export const recoverEmail : () => string = () =>{
-//     let em : string = "t";
-//     let t = onAuthStateChanged(auth, (user) => {
-//         if (user) {
-//           // User is signed in, see docs for a list of available properties
-//           // https://firebase.google.com/docs/reference/js/auth.user
-//           em = user.email !== null ? user.email : ""
-//           // ...
-//         }
-//       });
-//       return em;
-// }
 
 export const recoverEmail: () => Promise<string> = () => {
   return new Promise((resolve, reject) => {
@@ -34,20 +27,20 @@ export const recoverEmail: () => Promise<string> = () => {
   });
 };
 
+// fonction qui permet de verifier si l'utilisateur connecté a verifié son email
 export const verified: () => Promise<string> = () => {
-  return new Promise((res,rej)=>{
-    onAuthStateChanged(auth, (user) => {
+  return new Promise((res, rej) => {
+    if (typeof window !== "undefined") {
+      window.location.reload();
+      onAuthStateChanged(auth, (user) => {
         if (user) {
           // User is signed in, see docs for a list of available properties
           // https://firebase.google.com/docs/reference/js/auth.user
           if (user.emailVerified) {
-            if (typeof window !== "undefined") {
-              window.location.assign("/");
-            }
+            logValid();
+            window.location.assign(ROUTES.home);
           } else {
-            if (typeof window !== "undefined") {
-              window.location.assign("/Auth/Email-verification");
-            }
+            window.location.assign(ROUTES.verification);
           }
           // ...
         } else {
@@ -55,15 +48,12 @@ export const verified: () => Promise<string> = () => {
           // ...
         }
       });
-  })
+    }
+  });
 };
 
+export const resend = () => {
+  sendEmailVerification(auth.currentUser as user).then((res) => {});
 
-
-
-export const resend =() =>{
-    sendEmailVerification(auth.currentUser as user).then((res) => {
-      });
-
-    return "we have resend a new verification..."
-}
+  return "we have resend a new verification...";
+};

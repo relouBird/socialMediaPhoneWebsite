@@ -1,11 +1,12 @@
 <script lang="ts">
   export let link: string;
+  export let small : boolean = false ;
 </script>
 
 <a href={link}>
   <svg
-    width="30"
-    height="30"
+    width={small ? "21":"30"}
+    height={small ? "21":"30"}
     viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

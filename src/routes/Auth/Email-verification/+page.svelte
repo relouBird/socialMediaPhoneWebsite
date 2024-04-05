@@ -19,8 +19,11 @@
   $: email = $state;
 </script>
 
+<svelte:head>
+  <title>Email Verification - JetSlide</title>
+</svelte:head>
+
 <section class="w-full h-full flex justify-center items-center">
-  <!-- <div class="w-[75%] h-[220px] sm:w-[300px] sm:h-[300px] bg-gray-200 rounded shadow shadow-black/10"></div> -->
   <Verification
     {email}
     resend={() => {
