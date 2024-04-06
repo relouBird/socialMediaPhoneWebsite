@@ -7,6 +7,9 @@
   } from "../config/connectedVerification";
 
   connectedVerification();
+  if(typeof window !== "undefined"){
+    window.addEventListener('popstate',connectedVerification)
+  }
   let isNavbar = useNavBar();
 </script>
 
