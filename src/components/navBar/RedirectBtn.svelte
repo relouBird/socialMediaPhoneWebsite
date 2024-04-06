@@ -1,13 +1,30 @@
 <script lang="ts">
+  import { imageURL } from "$lib/Data/addImageOnPost";
+  import { uid,currentUser } from "$lib/Data/postCreation";
+  import { recoverUid,recoverCurrentUser } from "$lib/Data/postCreation";
+  import type { user } from "$lib/types/userType";
+  import { ROUTES } from "../../config/route";
   export let name: string = "";
   export let link: string = " ";
   export let handleClick : () => void = ()=>{};
   export let active: boolean = false;
+
+  async function doThat(){
+    uid.set((await recoverUid()) as string)
+    currentUser.set((await recoverCurrentUser()) as user)
+  }
+
 </script>
 
 <a
   href={link}
-  on:click={handleClick}
+  on:click={()=>{
+    handleClick();
+    imageURL.set(null)
+    if(link === ROUTES.post_creation){
+      doThat();
+    }
+  }}
   class="flex justify-center max-sm:scale-75 items-center rounded bg-[rgb(100,100,100)]/60 px-2 py-2"
 >
   {#if name === "Home"}
