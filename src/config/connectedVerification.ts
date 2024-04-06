@@ -1,23 +1,20 @@
 let isAuthenticated: boolean = false;
 import { ROUTES } from "./route";
 
+let va: boolean;
 
 export const logValid = (verify: boolean = false) => {
   let boolWindow: boolean = typeof window !== "undefined";
-  if (!verify) {
-    if (boolWindow) {
-      window.localStorage.setItem(
-        "token",
-        Math.round(Math.random() * 1000).toString()
-      );
-    }
+  if (boolWindow) {
+    window.localStorage.setItem(
+      "token",
+      Math.round(Math.random() * 1000).toString()
+    );
   } else {
-    if (boolWindow) {
-      window.localStorage.setItem("token", "1");
-    }
+    window.localStorage.setItem("token", "1");
   }
+  va = verify;
 };
-
 
 export const connectedVerification = () => {
   if (typeof window !== "undefined") {
@@ -34,36 +31,35 @@ export const connectedVerification = () => {
     } else if (
       w.getItem("token") !== null &&
       (window.location.pathname === ROUTES.register ||
-        window.location.pathname === ROUTES.verification || window.location.pathname === ROUTES.passwordReset || window.location.pathname === ROUTES.login)
+        window.location.pathname === ROUTES.passwordReset ||
+        window.location.pathname === ROUTES.login)
     ) {
-      window.location.assign(ROUTES.home)
+      window.location.assign(ROUTES.home);
     }
   }
 };
 
-export const deconnexion = () =>{
+export const deconnexion = () => {
   if (typeof window !== "undefined") {
     window.localStorage.clear();
     window.location.assign(ROUTES.login);
   }
-}
-
+};
 
 export const isConnected = () => {
   if (typeof window !== "undefined") {
-    if(window.localStorage.getItem('token') !== null){
+    if (window.localStorage.getItem("token") !== null) {
       return true;
     }
     return false;
   }
-}
+};
 
-
-export const useNavBar = () =>{
-  if(typeof window !== "undefined"){
-    if(window.location.pathname.includes('/Auth')){
+export const useNavBar = () => {
+  if (typeof window !== "undefined") {
+    if (window.location.pathname.includes("/Auth")) {
       return false;
     }
-    return true
+    return true;
   }
-}
+};

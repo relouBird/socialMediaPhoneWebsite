@@ -47,7 +47,7 @@ export const createUser = (
       }
       sendEmailVerification(auth.currentUser as user).then((res) => {
         if (typeof window !== "undefined") {
-          logValid();
+          logValid(true);
           window.location.assign(ROUTES.verification);
         }
       });
