@@ -31,9 +31,9 @@ export const recoverEmail: () => Promise<string> = () => {
 export const verified: () => Promise<string> = () => {
   return new Promise((res, rej) => {
     if (typeof window !== "undefined") {
-      window.location.reload();
       onAuthStateChanged(auth, (user) => {
         if (user) {
+          window.location.reload();
           // User is signed in, see docs for a list of available properties
           // https://firebase.google.com/docs/reference/js/auth.user
           if (user.emailVerified) {

@@ -7,7 +7,7 @@
 </script>
 
 <div
-  class={`w-[85%] h-[36%] sm:w-[60%] rounded sm:h-[50%] flex flex-col relative justify-center ${sms !== "" ? "gap-12": "gap-16"} items-center shadow-lg pb-5 pt-8 bg-black/90 z-0`}
+  class={`w-[85%] h-[36%] sm:w-[60%] rounded sm:h-[50%] flex flex-col relative justify-center ${sms !== "" ? "gap-4": "gap-8"} items-center shadow-lg pb-5 pt-8 bg-black/90 z-0`}
 >
   <div class="z-0 max-sm:scale-75 absolute bottom-5 right-5 rotate-45">
     <svg
