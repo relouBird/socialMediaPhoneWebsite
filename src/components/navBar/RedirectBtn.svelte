@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { imageURL } from "$lib/Data/addImageOnPost";
-  import { uid,currentUser } from "$lib/Data/postCreation";
+  import { defineNullDatasImage } from "$lib/Data/addImageOnPost";
+  import { uid,currentUser, defineNullStoreDatas } from "$lib/Data/postCreation";
   import { recoverUid,recoverCurrentUser } from "$lib/Data/postCreation";
   import type { user } from "$lib/types/userType";
   import { ROUTES } from "../../config/route";
@@ -19,9 +19,10 @@
 <a
   href={link}
   on:click={()=>{
-    handleClick();
-    imageURL.set(null)
+    handleClick();  
     if(link === ROUTES.post_creation){
+      defineNullDatasImage();
+      defineNullStoreDatas();
       doThat();
     }
   }}

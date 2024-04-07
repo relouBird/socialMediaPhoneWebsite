@@ -3,13 +3,27 @@
   import AddImage from "../../components/posts/AddImage.svelte";
   import Optional from "../../components/posts/Optional.svelte";
   import { isConnected } from "../../config/connectedVerification";
-  import { imageURL } from "$lib/Data/addImageOnPost";
+  import { defineNullDatasImage, file_image, imageURL } from "$lib/Data/addImageOnPost";
+  import {
+    uid,
+    downloadUrlImage,
+    file_type,
+    recoverUid,
+    defineNullStoreDatas,
+  } from "$lib/Data/postCreation";
+  import {
+    postCreation,
+    progressEvolve,
+    uploading,
+  } from "$lib/Data/postCreation";
+  import CloseBtn from "../../components/common/CloseBtn.svelte";
 
   let connect = isConnected();
+  let textareaInput: string = "";
 </script>
 
 <svelte:head>
-  <title>Home - JetSlide</title>
+  <title>Create Your Post - JetSlide</title>
   <meta name="description" content="Svelte demo app" />
 </svelte:head>
 
@@ -20,11 +34,30 @@
     <div
       class="w-full h-12 flex px-2.5 sm:px-4 justify-between items-center border-b-[1.65px] border-b-black/20"
     >
-      <p class="block text-[15px]">Create a Post</p>
+      <p class="block text-[15px] font-medium text-black/70">Create a Post</p>
       <button
-        class="block text-[12.5px] sm:text-sm font-medium text-black/[0.80]"
-        >FOLLOWING</button
-      >
+        on:click={() => {
+          if (typeof $imageURL !== null && $file_image !== null) {
+            (async function T() {
+              downloadUrlImage.set(await uploading($file_image));
+              uid.set(await recoverUid());
+
+              console.log("ça marche en fin :" + $downloadUrlImage);
+              postCreation(
+                textareaInput,
+                $uid,
+                $downloadUrlImage ? $downloadUrlImage : "",
+                $file_type ? $file_type : ""
+              );
+            })();
+          } else {
+            // console.log(textareaInput)
+            postCreation(textareaInput, $uid, "", "");
+          }
+        }}
+        class="block text-[12.5px] sm:text-sm font-medium text-white/70 px-5 pt-1.5 pb-2 rounded bg-black/60"
+        >Post
+      </button>
     </div>
     <div class="w-full flex justify-between items-center px-3">
       <div class=" flex justify-center gap-1 items-center pt-4">
@@ -50,6 +83,7 @@
           placeholder="What's new ?"
           name=""
           id=""
+          bind:value={textareaInput}
         ></textarea>
         <img
           class="w-full rounded-sm h-[350px] aspect-square object-cover object-center"
@@ -62,8 +96,41 @@
           placeholder="What's new ?"
           name=""
           id=""
+          bind:value={textareaInput}
         ></textarea>
       {/if}
     </div>
+    <div class="w-full px-4 pt-5">
+      {#if $progressEvolve !== null}
+        <p class="text-right text-sm pt-2.5 pr-3 font-medium text-black/70">
+          Progression : <span class="text-base font-semibold text-blue-400"
+            >{$progressEvolve}%</span
+          >
+        </p>
+      {:else}
+        <p></p>
+      {/if}
+    </div>
+    {#if $progressEvolve}
+      <div
+        class="w-full h-screen sm:h-full absolute flex justify-center items-center top-0 left-0 bg-black/30"
+      >
+        <div
+          class="w-[70%] sm:w-[50%] h-[250px] relative rounded bg-white flex justify-center items-center"
+        >
+          <CloseBtn
+            handleClick={() => {
+              progressEvolve.set(null);
+              defineNullDatasImage();
+              defineNullStoreDatas();
+              textareaInput = ""
+            }}
+          />
+          <p class="text-center text-blue-400/80 font-medium text-xl">
+            Post complete !
+          </p>
+        </div>
+      </div>
+    {/if}
   </section>
 {/if}

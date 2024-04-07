@@ -22,7 +22,7 @@
     class="w-full h-[88vh] overflow-hidden sm:h-screen flex justify-center sm:items-center sm:bg-gray-100"
   >
     <div
-      class="w-[100%] sm:w-[650px] relative h-full sm:overflow-auto sm:h-[95vh] sm:rounded-sm sm:-translate-x-4 bg-white"
+      class="w-[100%]  sm:w-[650px] relative h-full sm:overflow-auto sm:h-[95vh] sm:rounded-sm sm:-translate-x-4 bg-white"
     >
       {#if isNavbar}
         <Navbar />

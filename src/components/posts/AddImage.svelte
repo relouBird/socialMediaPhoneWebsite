@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { ChangeEventHandler, MouseEventHandler } from "svelte/elements";
-  import { imageURL } from "$lib/Data/addImageOnPost";
+  import { imageURL,file_image } from "$lib/Data/addImageOnPost";
 
   export let handleClick : MouseEventHandler<HTMLButtonElement> = ()=>{};
 
@@ -11,7 +11,9 @@
     const file = inputElement.files[0];
     if (file) {
       const url = URL.createObjectURL(file);
+
       imageURL.set(url);
+      file_image.set(file)
     }
   };
 </script>
