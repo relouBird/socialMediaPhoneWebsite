@@ -1,9 +1,9 @@
 <script lang="ts">
+  import type { ChangeEventHandler } from "svelte/elements";
   import { isConnected } from "../config/connectedVerification";
 
   let connect = isConnected();
-  let data = ['rel','rem']
-  let id : number = 0;
+
 </script>
 
 <svelte:head>
@@ -12,19 +12,13 @@
 </svelte:head>
 
 {#if connect}
-  <section class="w-full navbar-effect sm:navbar-effect sm:shadow bg-white overflow-hidden">
-    <div class="w-full h-10 flex pt-8 px-2.5 sm:px-4 justify-between items-center">
-      
-      
-      {#each data as dat ,i }
-        <button on:click={()=>{id = i}} class="px-2 py-1 bg-gray-200">
-          <span>{dat}</span>
-          {#if id=== i}
-          <span>  {dat}</span>
-          {/if}
-        </button>
-      {/each}
-
+  <section
+    class="w-full navbar-effect sm:navbar-effect sm:shadow bg-white overflow-hidden"
+  >
+    <div
+      class="w-full h-10 flex pt-8 text-lg font-medium text-black/70 px-2.5 sm:px-4 justify-between items-center"
+    >
+    Welcome on the Home view.
     </div>
   </section>
 {/if}

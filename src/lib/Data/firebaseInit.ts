@@ -10,6 +10,7 @@ import { getFirestore } from "firebase/firestore";
 
 // autres importations
 import { logValid } from "../../config/connectedVerification";
+import { getStorage } from "firebase/storage";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -25,9 +26,12 @@ const firebaseConfig = {
 
 
 export const app = initializeApp(firebaseConfig);
+// Initialize Firebase Authentication and get a reference to the service
 export const auth = getAuth(app);
 // Initialize Cloud Firestore and get a reference to the service
 export const database = getFirestore(app);
+// Initialize Cloud Storage and get a reference to the service
+export const storage = getStorage();
 
 
 
