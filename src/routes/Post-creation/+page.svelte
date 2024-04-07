@@ -70,7 +70,7 @@
           <p class="pl-0.5 text-[15px] text-black/75 font-medium">
             {USER.name}
           </p>
-          <Optional />
+          <Optional name="Public" isPublic />
         </div>
       </div>
 

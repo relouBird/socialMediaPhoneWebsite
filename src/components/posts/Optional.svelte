@@ -1,7 +1,16 @@
+<script lang="ts">
+  import type { MouseEventHandler } from "svelte/elements";
+
+  export let name : string = " ";
+  export let handleClick: MouseEventHandler<HTMLButtonElement> = ()=>{};
+  export let isPublic : boolean = false ;
+</script>
 <button
+on:click={handleClick}
   class="flex items-center px-2.5 pt-1 pb-1.5 rounded-sm justify-center gap-2 scale-90 bg-blue-200"
 >
-  <p class="text-blue-400 text-sm">Public</p>
+  <p class="text-blue-400 text-sm">{name}</p>
+  {#if isPublic}
   <svg
     width="13"
     height="13"
@@ -14,4 +23,5 @@
       fill="rgb(96,165,250)"
     />
   </svg>
+  {/if}
 </button>
