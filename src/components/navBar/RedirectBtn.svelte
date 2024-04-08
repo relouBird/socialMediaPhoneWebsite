@@ -12,6 +12,7 @@
   async function doThat(){
     uid.set((await recoverUid()) as string)
     currentUser.set((await recoverCurrentUser()) as user)
+    console.log($uid,$currentUser)
   }
 
 </script>
@@ -20,10 +21,10 @@
   href={link}
   on:click={()=>{
     handleClick();  
+    doThat();
     if(link === ROUTES.post_creation){
       defineNullDatasImage();
       defineNullStoreDatas();
-      doThat();
     }
   }}
   class="flex justify-center max-sm:scale-75 items-center rounded bg-[rgb(100,100,100)]/60 px-2 py-2"
