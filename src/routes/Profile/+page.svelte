@@ -1,11 +1,24 @@
 <script lang="ts">
   import { writable, type Writable } from "svelte/store";
-import ChangeImageBtn from "../../components/common/ChangeImageBtn.svelte";
-import ModificationBtn from "../../components/common/ModificationBtn.svelte";
+  import ChangeImageBtn from "../../components/common/ChangeImageBtn.svelte";
+  import ModificationBtn from "../../components/common/ModificationBtn.svelte";
   import Optional from "../../components/posts/Optional.svelte";
   import { isConnected } from "../../config/connectedVerification";
+  import { profileCreation } from "$lib/Data/updateProfileData";
+  import { recoverUid, uid } from "$lib/Data/postCreation";
+  import { profileDataFetch } from "$lib/Data/getProfileData";
+  import type { profileDataProps } from "$lib/types/postType";
 
   let connect = isConnected();
+
+  let datas: profileDataProps = {
+    id: "",
+    name: "",
+    work: "",
+    bio: "",
+    faceUrl: "",
+    coverUrl: "",
+  };
 
   // ceci sont les variables qui gere la photo de profil
   let imageProfile: Writable<string> = writable("");
@@ -14,17 +27,28 @@ import ModificationBtn from "../../components/common/ModificationBtn.svelte";
   let imageBackground: Writable<string> = writable("");
 
   // ceci sont les variables qui gerent le metier
-  let work: string = "developper";
   let workBool: boolean = false;
+  let work: string = "";
 
   // ceci sont les variables qui gerent le username
   let usernameBool: boolean = false;
-  let username: string = "Murel Ulrich";
+  let username: string = "";
 
   // Ceci sont les variables qui gerent le about
   let textBool: boolean = false;
-  let text: string =
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum esse quia unde perspiciatis, cupiditate veniam aliquam dolorum animi vero tenetur natus earum voluptatem ut aperiam temporibus, rerum inventore ab eum?";
+  let text: string = "";
+
+  (async () => {
+    datas = await profileDataFetch(await recoverUid());
+    username = datas.name !== "" ? datas.name : "Jet Slide";
+    work = datas.work !== "" ? datas.work : "developper";
+    text =
+      datas.bio !== ""
+        ? datas.bio
+        : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum esse quia unde perspiciatis, cupiditate veniam aliquam dolorum animi vero tenetur natus earum voluptatem ut aperiam temporibus, rerum inventore ab eum?";
+    imageProfile.set(datas.faceUrl !== ""? datas.faceUrl : "");
+    imageBackground.set(datas.coverUrl !== "" ? datas.coverUrl : "")
+  })();
 </script>
 
 <svelte:head>
@@ -52,12 +76,12 @@ import ModificationBtn from "../../components/common/ModificationBtn.svelte";
           />
         {/if}
         <div class="absolute right-5 bottom-6 scale-125">
-          <ChangeImageBtn imageWritable={imageBackground} />
+          <ChangeImageBtn imageWritable={imageBackground} isCover />
         </div>
       </div>
 
       <div
-        class={` absolute -bottom-12 right-10 w-28 ${$imageProfile !== ""? " scale-75": ""} rounded-full bg-white`}
+        class={` absolute -bottom-12 right-10 w-28 ${$imageProfile !== "" ? " scale-75" : ""} rounded-full bg-white`}
       >
         {#if $imageProfile !== ""}
           <img
@@ -99,6 +123,10 @@ import ModificationBtn from "../../components/common/ModificationBtn.svelte";
         {:else}
           <Optional
             handleClick={() => {
+              (async () => {
+                uid.set(await recoverUid());
+                profileCreation($uid, username, work, text);
+              })();
               usernameBool = false;
             }}
             name={"Confirm "}
@@ -129,6 +157,10 @@ import ModificationBtn from "../../components/common/ModificationBtn.svelte";
           <div class="-translate-x-[100%]">
             <Optional
               handleClick={() => {
+                (async () => {
+                  uid.set(await recoverUid());
+                  profileCreation($uid, username, work, text);
+                })();
                 workBool = false;
               }}
               name={"Confirm "}
@@ -156,6 +188,10 @@ import ModificationBtn from "../../components/common/ModificationBtn.svelte";
         <div class="w-[93%] flex justify-end items-center">
           <Optional
             handleClick={() => {
+              (async () => {
+                uid.set(await recoverUid());
+                profileCreation($uid, username, work, text);
+              })();
               textBool = false;
             }}
             name={"Confirm "}

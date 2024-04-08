@@ -8,3 +8,12 @@ export interface postCreationDataProps{
     comment: string[];
     date: string;
 }
+
+export interface profileDataProps{
+    id : string;
+    name: string;
+    work: string;
+    bio: string;
+    faceUrl: string;
+    coverUrl: string;
+}

@@ -3,7 +3,11 @@
   import AddImage from "../../components/posts/AddImage.svelte";
   import Optional from "../../components/posts/Optional.svelte";
   import { isConnected } from "../../config/connectedVerification";
-  import { defineNullDatasImage, file_image, imageURL } from "$lib/Data/addImageOnPost";
+  import {
+    defineNullDatasImage,
+    file_image,
+    imageURL,
+  } from "$lib/Data/addImageOnPost";
   import {
     uid,
     downloadUrlImage,
@@ -17,6 +21,7 @@
     uploading,
   } from "$lib/Data/postCreation";
   import CloseBtn from "../../components/common/CloseBtn.svelte";
+  import CompletePopup from "../../components/common/CompletePopup.svelte";
 
   let connect = isConnected();
   let textareaInput: string = "";
@@ -112,25 +117,14 @@
       {/if}
     </div>
     {#if $progressEvolve}
-      <div
-        class="w-full h-screen sm:h-full absolute flex justify-center items-center top-0 left-0 bg-black/30"
-      >
-        <div
-          class="w-[70%] sm:w-[50%] h-[250px] relative rounded bg-white flex justify-center items-center"
-        >
-          <CloseBtn
-            handleClick={() => {
-              progressEvolve.set(null);
-              defineNullDatasImage();
-              defineNullStoreDatas();
-              textareaInput = ""
-            }}
-          />
-          <p class="text-center text-blue-400/80 font-medium text-xl">
-            Post complete !
-          </p>
-        </div>
-      </div>
+      <CompletePopup
+        handleClick={() => {
+          progressEvolve.set(null);
+          defineNullDatasImage();
+          defineNullStoreDatas();
+          textareaInput = "";
+        }}
+      />
     {/if}
   </section>
 {/if}

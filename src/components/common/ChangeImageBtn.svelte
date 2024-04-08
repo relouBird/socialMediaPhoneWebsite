@@ -1,9 +1,12 @@
 <script lang="ts">
+  import { recoverUid, uid} from "$lib/Data/postCreation";
+  import { profileDataAddCoverImage, uploadingCoverProfile, uploadingFaceProfile } from "$lib/Data/updateProfileData";
   import type { ChangeEventHandler, MouseEventHandler } from "svelte/elements";
   import type { Writable } from "svelte/store";
 
   export let handleClick : MouseEventHandler<HTMLButtonElement> = ()=>{}
   export let imageWritable : Writable<string>;
+    export let isCover: boolean = false;
 
   const handleFileInput : ChangeEventHandler<HTMLInputElement> = (event)=>{
     const filesTarget = event.target as HTMLInputElement;
@@ -11,8 +14,19 @@
     if(filesTarget){
       const file = filesTarget.files[0]
       if(file){
-        const url = URL.createObjectURL(file)
-        imageWritable.set(url)
+        const url = URL.createObjectURL(file);
+        (async function T() {
+          uid.set(await recoverUid());
+          if(isCover){
+            let urlValid = await uploadingCoverProfile(file,$uid)
+            imageWritable.set(urlValid)
+            profileDataAddCoverImage($uid,urlValid,true)
+          } else {
+            let urlValid = await uploadingFaceProfile(file,$uid)
+            imageWritable.set(urlValid)
+            profileDataAddCoverImage($uid,urlValid,false)
+          }
+        })();
       }
     }
   }
@@ -20,7 +34,6 @@
 
 <button class="" on:click={handleClick}>
   <input
-    multiple
     accept="image/*"
     type="file"
     class="text-transparent absolute top-0 left-0 before:absolute rounded-sm before:rounded-sm invisible before:visible before:w-full before:h-full z-10 before:z-10 before:bg-transparent w-full h-full
