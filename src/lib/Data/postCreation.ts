@@ -9,8 +9,9 @@ import { ROUTES } from "../../config/route";
 
 // autres importations
 import { writable, type Writable } from "svelte/store";
-import type { user } from "$lib/types/userType";
+import type { user, userDataForPostProps } from "$lib/types/userType";
 import type { postCreationDataProps } from "$lib/types/postType";
+import { getDataUserForPost } from "./getProfileData";
 
 
 //variables liées à l'utilisateur
@@ -121,10 +122,16 @@ export const  uploading: (file: File) =>Promise<string> =  (file) =>{
 
 // la fonction en elle meme qui recuperera les données et s'occupera de la creation du post
 export const postCreation = async (input : string , uid: string, downloadUrlImage: string,fileType: string  ) =>{
+  let valid = false
     if(input !== ""){
+      // recuperation de l'image et du nom de l'utilisateur
+       let userSmallData :userDataForPostProps = await getDataUserForPost(uid);
+
         // creation de l'objet envoyer pour le post
         let postCreationData : postCreationDataProps = {
             uid: uid,
+            nameUser:userSmallData.username,
+            faceUrl: userSmallData.faceUrl,
             text: input,
             url: downloadUrlImage,
             fileType: fileType,
@@ -145,8 +152,10 @@ export const postCreation = async (input : string , uid: string, downloadUrlImag
                 })
             }
             console.log("data fetch " + postCreationData.uid);
+            valid = true
           } catch (error) {
             console.log("Erreur : " + error);
           }
     }
+    return valid
 }

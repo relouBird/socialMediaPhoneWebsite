@@ -20,11 +20,22 @@
     progressEvolve,
     uploading,
   } from "$lib/Data/postCreation";
-  import CloseBtn from "../../components/common/CloseBtn.svelte";
   import CompletePopup from "../../components/common/CompletePopup.svelte";
+  import type { userDataForPostProps } from "$lib/types/userType";
+  import { getDataUserForPost } from "$lib/Data/getProfileData";
 
   let connect = isConnected();
   let textareaInput: string = "";
+  let validate : boolean= false;
+  let userData: userDataForPostProps ={
+    username: "",
+    faceUrl: ""
+  };
+  (
+    async function T() {
+      userData = await getDataUserForPost($uid);
+    }
+  )()
 </script>
 
 <svelte:head>
@@ -48,7 +59,7 @@
               uid.set(await recoverUid());
 
               console.log("ça marche en fin :" + $downloadUrlImage);
-              postCreation(
+               postCreation(
                 textareaInput,
                 $uid,
                 $downloadUrlImage ? $downloadUrlImage : "",
@@ -57,7 +68,9 @@
             })();
           } else {
             // console.log(textareaInput)
-            postCreation(textareaInput, $uid, "", "");
+           (async function R() {
+            validate = await postCreation(textareaInput, $uid, "", "");
+           })()
           }
         }}
         class="block text-[12.5px] sm:text-sm font-medium text-white/70 px-5 pt-1.5 pb-2 rounded bg-black/60"
@@ -68,12 +81,12 @@
       <div class=" flex justify-center gap-1 items-center pt-4">
         <img
           class="w-10 h-10 rounded-full aspect-square object-cover object-center"
-          src={USER.profile}
+          src={userData.faceUrl !== "" ? userData.faceUrl : "/user.png"}
           alt=""
         />
         <div class="pl-3">
           <p class="pl-0.5 text-[15px] text-black/75 font-medium">
-            {USER.name}
+            {userData.username}
           </p>
           <Optional name="Public" isPublic />
         </div>
@@ -116,10 +129,11 @@
         <p></p>
       {/if}
     </div>
-    {#if $progressEvolve}
+    {#if $progressEvolve === 100 || validate === true}
       <CompletePopup
         handleClick={() => {
           progressEvolve.set(null);
+          validate = false
           defineNullDatasImage();
           defineNullStoreDatas();
           textareaInput = "";
