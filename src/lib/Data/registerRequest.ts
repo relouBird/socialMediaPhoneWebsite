@@ -4,7 +4,7 @@ import {
   sendEmailVerification,
 } from "@firebase/auth";
 import { auth, database } from "./firebaseInit";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 
 // autres importations
 import { logValid } from "../../config/connectedVerification";
@@ -26,13 +26,14 @@ export const createUser = (
     .then((userCredential) => {
       var date = new Date().toLocaleDateString();
       userData = {
-        FirstName: firstname,
-        LastName: lastname,
+        username: firstname + " " + lastname,
+        work: "",
+        bio: "",
         Email: email,
         Password: password,
-        uid: userCredential.user?.uid,
-        ProfilePicture: "",
-        Description: "",
+        id: userCredential.user?.uid,
+        faceUrl: "",
+        coverUrl: "",
         SignupUpdate: `${date}`,
       };
 
@@ -40,7 +41,7 @@ export const createUser = (
     })
     .then(async () => {
       try {
-        const docRef = await addDoc(collection(database, "users"), userData);
+        await setDoc(doc(database, "users", `${userData.id}`), userData);
         console.log("data fetch " + userData.Email);
       } catch (error) {
         console.log("Erreur : " + error);

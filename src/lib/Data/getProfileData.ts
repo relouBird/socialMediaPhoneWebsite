@@ -1,23 +1,32 @@
 import type { profileDataProps } from "$lib/types/postType";
 import { doc, getDoc } from "firebase/firestore";
 import { database } from "./firebaseInit";
+import type { userDataProps } from "$lib/types/userType";
+
+
+// creation des noms de collection
+let profiles_collection = "profiles"
+let users_collection = "users"
 
 // fonction qui permet de recuperer les données
-export const profileDataFetch: (uid: string) => Promise<profileDataProps> = async (uid) =>{
-    let profileData : profileDataProps = {
+export const profileDataFetch: (uid: string) => Promise<userDataProps> = async (uid) =>{
+    let profileData : userDataProps = {
         id: uid,
-        name: "",
+        username: "",
         work: "",
         bio: "",
         faceUrl: "",
         coverUrl: "",
+        Email:"",
+        Password:"",
+        SignupUpdate:"",
 
     };
     try {
-        const docRef = doc(database, "profiles", `${profileData.id}`);
+        const docRef = doc(database, users_collection, `${profileData.id}`);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-            profileData = docSnap.data() as profileDataProps;
+            profileData = docSnap.data() as userDataProps;
             console.log("Document data:", profileData);
         } else {
             console.log("No such document!");

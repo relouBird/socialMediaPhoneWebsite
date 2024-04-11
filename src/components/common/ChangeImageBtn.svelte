@@ -16,6 +16,7 @@
       if(file){
         const url = URL.createObjectURL(file);
         (async function T() {
+          imageWritable.set("loading")
           uid.set(await recoverUid());
           if(isCover){
             let urlValid = await uploadingCoverProfile(file,$uid)

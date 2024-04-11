@@ -1,13 +1,14 @@
 import {type User } from "@firebase/auth";
 
 export interface userDataProps {
-    FirstName: string;
-    LastName: string;
+    username:string;
+    work : string;
+    bio: string;
     Email: string;
     Password: string;
-    uid: string;
-    ProfilePicture: string;
-    Description: string;
+    id: string;
+    faceUrl: string;
+    coverUrl: string;
     SignupUpdate: string;
   }
 
