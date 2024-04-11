@@ -1,6 +1,5 @@
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { database, storage } from "./firebaseInit";
-import type { profileDataProps } from "$lib/types/postType";
 import type { userDataProps } from "$lib/types/userType";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
@@ -142,9 +141,12 @@ export const profileCreation = async (
 ) => {
   if (input !== "" || work !== "" || bio !== "") {
     // creation de l'objet envoyer pour le post
-    let profileCreationData: profileDataProps = {
+    let profileCreationData: userDataProps = {
       id: uid,
-      name: input,
+      username: input,
+      Email:"",
+      Password:"",
+      SignupUpdate: new Date().toLocaleDateString(),
       work: work,
       bio: bio,
       faceUrl: "",
