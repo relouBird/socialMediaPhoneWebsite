@@ -45,7 +45,7 @@
 
   (async () => {
     datas = await profileDataFetch(await recoverUid());
-    username = datas.username !== "loading..." && datas.username !== "" ? datas.username : "Jet Slide";
+    username = datas.username !== "loading..." ? datas.username : "Jet Slide";
     work = datas.work !== "loading..." && datas.work !=="" ? datas.work : "developper";
     text =
       datas.bio !== "loading..." && datas.bio !==""
