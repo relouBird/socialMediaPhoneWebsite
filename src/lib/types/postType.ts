@@ -1,5 +1,7 @@
 export interface postCreationDataProps{
     uid : string;
+    nameUser: string;
+    faceUrl: string;
     text : string;
     url: string;
     fileType: string;
