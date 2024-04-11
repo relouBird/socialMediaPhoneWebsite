@@ -8,46 +8,51 @@
   import { recoverUid, uid } from "$lib/Data/postCreation";
   import { profileDataFetch } from "$lib/Data/getProfileData";
   import type { profileDataProps } from "$lib/types/postType";
+  import Loading from "../../components/common/Loading.svelte";
+  import type { userDataProps } from "$lib/types/userType";
 
   let connect = isConnected();
 
-  let datas: profileDataProps = {
-    id: "",
-    name: "",
-    work: "",
-    bio: "",
+  let datas: userDataProps = {
+    id: "loading",
+    username: "loading...",
+    work: "loading...",
+    bio: "loading...",
     faceUrl: "",
     coverUrl: "",
+    Email: "",
+    Password: "",
+    SignupUpdate: "",
   };
 
   // ceci sont les variables qui gere la photo de profil
-  let imageProfile: Writable<string> = writable("");
+  let imageProfile: Writable<string> = writable("loading");
 
   // ceci sont les variables qui gere la photo de fond
-  let imageBackground: Writable<string> = writable("");
+  let imageBackground: Writable<string> = writable("loading");
 
   // ceci sont les variables qui gerent le metier
   let workBool: boolean = false;
-  let work: string = "";
+  let work: string = datas.work;
 
   // ceci sont les variables qui gerent le username
   let usernameBool: boolean = false;
-  let username: string = "";
+  let username: string = datas.username;
 
   // Ceci sont les variables qui gerent le about
   let textBool: boolean = false;
-  let text: string = "";
+  let text: string = datas.bio;
 
   (async () => {
     datas = await profileDataFetch(await recoverUid());
-    username = datas.name !== "" ? datas.name : "Jet Slide";
-    work = datas.work !== "" ? datas.work : "developper";
+    username = datas.username !== "loading..." && datas.username !== "" ? datas.username : "Jet Slide";
+    work = datas.work !== "loading..." && datas.work !=="" ? datas.work : "developper";
     text =
-      datas.bio !== ""
+      datas.bio !== "loading..." && datas.bio !==""
         ? datas.bio
         : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum esse quia unde perspiciatis, cupiditate veniam aliquam dolorum animi vero tenetur natus earum voluptatem ut aperiam temporibus, rerum inventore ab eum?";
-    imageProfile.set(datas.faceUrl !== ""? datas.faceUrl : "");
-    imageBackground.set(datas.coverUrl !== "" ? datas.coverUrl : "")
+    imageProfile.set(datas.faceUrl !== "" ? datas.faceUrl : "");
+    imageBackground.set(datas.coverUrl !== "" ? datas.coverUrl : "");
   })();
 </script>
 
@@ -60,9 +65,12 @@
   <section
     class="w-full navbar-effect sm:navbar-effect sm:shadow bg-white overflow-hidden"
   >
-    <div class="pt-3 w-full relative h-[55%]">
+    {#if datas.id === "loading" || $imageProfile === "loading" || $imageBackground === "loading"}
+      <Loading />
+    {/if}
+    <div class="pt-1.5 w-full relative h-[55%]">
       <div class="w-full h-full relative">
-        {#if $imageBackground !== ""}
+        {#if $imageBackground !== "loading" && $imageBackground !== ""}
           <img
             src={$imageBackground}
             class="w-full h-full aspect-square object-cover object-center"
@@ -81,9 +89,9 @@
       </div>
 
       <div
-        class={` absolute -bottom-12 right-10 w-28 ${$imageProfile !== "" ? " scale-75" : ""} rounded-full bg-white`}
+        class={` absolute -bottom-12 right-10 w-28 ${$imageProfile !== "loading" ? " scale-75" : ""} rounded-full bg-white`}
       >
-        {#if $imageProfile !== ""}
+        {#if $imageProfile !== "loading" && $imageProfile !== ""}
           <img
             src={$imageProfile}
             class="w-28 h-auto rounded-full aspect-square object-cover object-center"
