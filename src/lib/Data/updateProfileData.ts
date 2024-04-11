@@ -4,8 +4,8 @@ import type { userDataProps } from "$lib/types/userType";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
 // creation des noms de collection
-let profiles_collection = "profiles"
-let users_collection = "users"
+let profiles_collection = "profiles";
+let users_collection = "users";
 
 // fonction qui permet de upload l'image de fond si besion se presente
 export const uploadingCoverProfile: (
@@ -71,7 +71,7 @@ export const uploadingFaceProfile: (
   });
 };
 
-// la fonction qui permet d'ajouter donc l'image dans le database
+// la fonction qui permet d'ajouter donc l'image dans le firestore
 export const profileDataAddCoverImage = async (
   uid: string,
   url: string,
@@ -108,12 +108,12 @@ export const profileDataAddCoverImage = async (
       } else {
         profileData = {
           id: docSnap.data().id,
-          username: docSnap.data().name,
+          username: docSnap.data().username,
           work: docSnap.data().work,
+          bio: docSnap.data().bio,
           Email: docSnap.data().Email,
           Password: docSnap.data().Password,
           SignupUpdate: docSnap.data().SignupUpdate,
-          bio: docSnap.data().bio,
           faceUrl: url,
           coverUrl: docSnap.data().coverUrl,
         };
@@ -144,8 +144,8 @@ export const profileCreation = async (
     let profileCreationData: userDataProps = {
       id: uid,
       username: input,
-      Email:"",
-      Password:"",
+      Email: "",
+      Password: "",
       SignupUpdate: new Date().toLocaleDateString(),
       work: work,
       bio: bio,
@@ -157,11 +157,20 @@ export const profileCreation = async (
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         profileCreationData = {
-          ...profileCreationData,
+          id: docSnap.data().id,
+          username: input,
+          work: work,
+          bio: bio,
+          Email: docSnap.data().Email,
+          Password: docSnap.data().Password,
+          SignupUpdate: docSnap.data().SignupUpdate,
           faceUrl: docSnap.data().faceUrl,
           coverUrl: docSnap.data().coverUrl,
         };
-        await setDoc(doc(database, users_collection, `${uid}`), profileCreationData);
+        await setDoc(
+          doc(database, users_collection, `${uid}`),
+          profileCreationData
+        );
       } else {
         await setDoc(
           doc(database, users_collection, `${profileCreationData.id}`),
@@ -170,6 +179,10 @@ export const profileCreation = async (
       }
 
       console.log("data fetch " + profileCreationData.id);
+      if (docSnap.exists()) {
+        await console.log("Document data:", docSnap.data());
+      
+      }
     } catch (error) {
       console.log("Erreur : " + error);
     }

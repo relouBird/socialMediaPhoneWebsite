@@ -7,7 +7,6 @@
   import { profileCreation } from "$lib/Data/updateProfileData";
   import { recoverUid, uid } from "$lib/Data/postCreation";
   import { profileDataFetch } from "$lib/Data/getProfileData";
-  import type { profileDataProps } from "$lib/types/postType";
   import Loading from "../../components/common/Loading.svelte";
   import type { userDataProps } from "$lib/types/userType";
 

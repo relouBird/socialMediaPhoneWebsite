@@ -53,7 +53,7 @@ export const recoverUid: ()=> Promise<string>  =  () => {
     });
   });
 };
-
+        
 // permet de recuperer l' utilisateur actuel...
 // elle est appelé lorsqu'on clique sur le bouton de creation de post
 export const recoverCurrentUser = async () => {
