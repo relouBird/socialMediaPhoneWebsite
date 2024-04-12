@@ -1,4 +1,8 @@
-let isAuthenticated: boolean = false;
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "$lib/Data/firebaseInit";
+
+
+// importations des differentes routes
 import { ROUTES } from "./route";
 
 let va: boolean;
@@ -45,6 +49,19 @@ export const deconnexion = () => {
     window.location.assign(ROUTES.login);
   }
 };
+
+
+export const signOutUser = () =>{
+  if(window !== undefined){
+    signOut(auth).then(() => {
+      // Sign-out successful.
+      window.location.assign(ROUTES.login)
+      window.localStorage.clear();
+    }).catch((error) => {
+      // An error happened.
+    }); 
+  } 
+}
 
 export const isConnected = () => {
   if (typeof window !== "undefined") {

@@ -1,11 +1,11 @@
 <script>
-  import { deconnexion } from "../../config/connectedVerification";
+  import { deconnexion, signOutUser } from "../../config/connectedVerification";
 </script>
 
 <button
   class="flex justify-center max-sm:scale-75 items-center rounded bg-[rgb(100,100,100)]/80 px-2.5 py-1.5"
   on:click={() => {
-    deconnexion();
+    // signOutUser();
   }}
 >
   <svg
