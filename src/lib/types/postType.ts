@@ -1,12 +1,13 @@
 export interface postCreationDataProps{
     uid : string;
+    id: string;
     nameUser: string;
     faceUrl: string;
     text : string;
     url: string;
     fileType: string;
-    like: number;
-    dislike: number;
+    like: string[];
+    dislike: string[];
     comment: string[];
     date: string;
 }

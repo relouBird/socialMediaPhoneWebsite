@@ -5,24 +5,47 @@
   import LikeUnfilled from "../emotes/LikeUnfilled.svelte";
   import UnlikeUnfilled from "../emotes/UnlikeUnfilled.svelte";
   import CommentsUnfilled from "../emotes/CommentsUnfilled.svelte";
+  import { recoverUid } from "$lib/Data/postCreation";
+  import { SearchPostByIdLike, useDislike, useLike } from "$lib/Data/getProfileData";
 
   export let username: string = "";
   export let userProfile: string = "";
+  export let id: string = "";
+  export let uidp: string = "";
   export let time: string = "";
   export let textPost: string = "";
   export let imagePost: string = "";
-  export let number_like: number = 0;
-  export let number_dislike: number = 0;
+  export let like: string[] = [];
+  export let dislike: string[] = [];
   export let comments: string[] = [];
 
+  function DoThat() {
+    id = "d";
+  }
+
   // gerer le like
+  let likes: string[] = [...like];
   let boolLike: boolean = false;
+  if(likes.includes(uidp)){
+    boolLike = true
+  }
   // gerer le dislike
+  let dislikes : string[] = [...dislike];
   let boolDislike: boolean = false;
+  if(dislikes.includes(uidp)){
+    boolDislike = true
+  }
+
   // gerer le comments
   let boolComments: boolean = false;
 
-  let isImagePost  = imagePost !== "" ? "h-[80%]": ""
+  let uid = "";
+
+  (async () => {
+    uid = await recoverUid();
+  })();
+
+  let isImagePost = imagePost !== "" ? "h-[80%]" : "";
 </script>
 
 <div class={isImagePost + "w-full pt-3 border-b"}>
@@ -40,21 +63,25 @@
     <p class="pl-1">{textPost}</p>
   </div>
   {#if imagePost !== ""}
-  <div class="w-full h-[70%]">
-    <Image src={imagePost} className="w-full h-full" notRounded />
-  </div>
+    <div class="w-full h-[70%]">
+      <Image
+        src={imagePost}
+        className="w-full h-full sm:h-[370px]"
+        notRounded
+      />
+    </div>
   {/if}
   <div class="flex w-full h-7 px-3 items-center justify-between">
     <div class="flex items-center justify-start gap-2">
       <div class="bg-blue-400 p-0.5 rounded-full">
         <LikeFilled size={10} rgbColor={"white"} />
       </div>
-      <p class="text-xs sm:text-[13px]">{number_like}</p>
+      <p class="text-xs sm:text-[13px]">{likes.length}</p>
     </div>
     <div class="flex gap-2 items-center justify-end">
-      <p class="text-xs sm:text-[13px]">{number_dislike} dislikes</p>
+      <p class="text-xs sm:text-[13px]">{dislikes.length} dislikes</p>
       <p class="text-[30px] -translate-y-2.5">.</p>
-      <p class="text-xs sm:text-[13px]">{comments.length - 1} comments</p>
+      <p class="text-xs sm:text-[13px]">{comments.length} comments</p>
     </div>
   </div>
   <div
@@ -62,13 +89,12 @@
   >
     <button
       on:click={() => {
-        if(!boolLike){
-            boolLike = !boolLike;
-            number_like = number_like + 1
-        }else{
-            boolLike = !boolLike;
-            number_like = number_like -1
-        }
+        let dataPost;
+        async function name() {
+          dataPost = await SearchPostByIdLike(id);
+          [boolLike,boolDislike,likes,dislikes] = await useLike(dataPost)
+        };
+        name()
       }}
       class="flex items-center gap-1 peer"
     >
@@ -84,22 +110,21 @@
 
     <button
       on:click={() => {
-        if(!boolDislike){
-            boolDislike = !boolDislike;
-            number_dislike = number_dislike + 1
-        }else{
-            boolDislike = !boolDislike;
-            number_dislike = number_dislike -1
-        }
+        let dataPost;
+        async function name() {
+          dataPost = await SearchPostByIdLike(id);
+          [boolLike,boolDislike,likes,dislikes] = await useDislike(dataPost)
+        };
+        name()
       }}
       class="flex items-center gap-1 peer"
     >
       <UnlikeUnfilled
         size={20}
-        rgbColor={boolDislike ? "rgb(59,130,246)" : "rgba(0,0,0,0.6)"}
+        rgbColor={boolDislike ? "rgb(239,68,68)" : "rgba(0,0,0,0.6)"}
       />
       <span
-        class={`text-sm -translate-y-0.5 ${boolDislike ? "text-blue-500" : "text-[rgba(0,0,0,0.6)]"} `}
+        class={`text-sm -translate-y-0.5 ${boolDislike ? "text-red-500" : "text-[rgba(0,0,0,0.6)]"} `}
         >Dislike</span
       >
     </button>

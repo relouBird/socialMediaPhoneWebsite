@@ -66,13 +66,15 @@
       {#if allPost.length !== 0}
       {#each allPost as post }
       <Post
-      username={post.nameUser}
+      id={post.id}
+      uidp={post.uid}
+      username={post.nameUser === username ? "Me": post.nameUser}
       userProfile={post.faceUrl}
       time={post.date}
       textPost={post.text}
       imagePost={post.url}
-      number_like={post.like}
-      number_dislike={post.dislike}
+      like={post.like}
+      dislike={post.dislike}
       comments={post.comment}
     />
       {/each}
