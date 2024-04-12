@@ -2,7 +2,7 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { app, auth, database, storage } from "./firebaseInit";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { DocumentReference, addDoc, collection, updateDoc } from "firebase/firestore";
+import { DocumentReference, addDoc, collection, updateDoc, type DocumentData } from "firebase/firestore";
 
 // importations des routes
 import { ROUTES } from "../../config/route";
@@ -130,28 +130,28 @@ export const postCreation = async (input : string , uid: string, downloadUrlImag
         // creation de l'objet envoyer pour le post
         let postCreationData : postCreationDataProps = {
             uid: uid,
+            id: "",
             nameUser:userSmallData.username,
             faceUrl: userSmallData.faceUrl,
             text: input,
             url: downloadUrlImage,
             fileType: fileType,
-            like: 0,
-            dislike: 0,
-            comment: [""],
+            like: [],
+            dislike: [],
+            comment: [],
             date: new Date().toLocaleString() as string,
         };
 
         try {
             let userID: string = "";
-            const docRef:DocumentReference<postCreationDataProps> | void = await addDoc(collection(database, "posts"), postCreationData).then((res)=>{
-             userID = res.id;
-            });
+            const docRef:DocumentReference<DocumentData> = await addDoc(collection(database, "posts"), postCreationData)
             if(docRef){
+              userID = docRef.id ?? ""; // Récupérer l'ID du document
                 await updateDoc(docRef as DocumentReference<postCreationDataProps>,{
                     id: userID
                 })
             }
-            console.log("data fetch " + postCreationData.uid);
+            console.log("data fetch " + postCreationData.uid + userID);
             valid = true
           } catch (error) {
             console.log("Erreur : " + error);
