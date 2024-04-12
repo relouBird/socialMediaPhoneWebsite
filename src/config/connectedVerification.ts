@@ -77,6 +77,6 @@ export const useNavBar = () => {
     if (window.location.pathname.includes("/Auth")) {
       return false;
     }
-    return true;
+    return true; 
   }
 };
