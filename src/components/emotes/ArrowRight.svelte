@@ -7,13 +7,12 @@
   <svg
     width={size}
     height={size}
-    class=" hue-rotate-180"
     viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      d="M20 2H4C2.897 2 2 2.897 2 4V22L7.333 18H20C21.103 18 22 17.103 22 16V4C22 2.897 21.103 2 20 2ZM20 16H6.667L4 18V4H20V16Z"
+      d="M10.707 17.707L16.414 12L10.707 6.29297L9.29297 7.70697L13.586 12L9.29297 16.293L10.707 17.707Z"
       fill={rgbColor}
     />
   </svg>

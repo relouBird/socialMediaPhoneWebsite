@@ -51,7 +51,7 @@
 <div class={isImagePost + "w-full pt-3 border-b"}>
   <div class="w-full px-3 flex justify-between items-start">
     <div class="flex justify-start gap-2 items-center">
-      <Image src={userProfile} className={" w-10 h-10"} />
+      <Image src={userProfile!== "" ? userProfile: "/user.png"} className={" w-10 h-10"} />
       <div>
         <p class="text-sm font-medium text-black/90">{username}</p>
         <p class="text-xs text-black/60 pt-1.5">{time}</p>
