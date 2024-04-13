@@ -5,17 +5,20 @@
   import LoadingPost from "../../components/common/LoadingPost.svelte";
   import StartConversation from "../../components/chats/StartConversation.svelte"
   import { isConnected } from "../../config/connectedVerification";
+  import { writable, type Writable } from "svelte/store";
+  import ConversationDetails from "../../components/chats/ConversationDetails.svelte";
 
   let connect = isConnected();
 
   let uid : string = "";
+  let allDatas : Writable<[string,conversationDataProps] >= writable(["",{id:"",messages: []}]);
   let datas : conversationDataProps
   let isCreated: string = "";
 
   (
     async () =>{
       uid = await recoverUid();
-      [isCreated,datas] = await conversationDataFetch(uid);
+      allDatas.set(await conversationDataFetch(uid))  ;
     }
   )();
 
@@ -29,12 +32,14 @@
 
 {#if connect}
   <section
-    class="w-full navbar-effect sm:navbar-effect sm:shadow bg-white overflow-hidden"
+    class="w-full h-full navbar-effect sm:navbar-effect sm:shadow bg-white overflow-hidden"
   >
-   {#if isCreated === ""}
+   {#if $allDatas[0] === ""}
     <LoadingPost />
-    {:else if isCreated === "false"}
-    <StartConversation />
+    {:else if $allDatas[0] === "false"}
+    <StartConversation uid={uid} data={allDatas} />
+    {:else if $allDatas[0] === "true"}
+      <ConversationDetails datas={allDatas} />
    {/if}
 
   </section>
