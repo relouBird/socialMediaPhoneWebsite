@@ -6,22 +6,27 @@
   import UnlikeUnfilled from "../emotes/UnlikeUnfilled.svelte";
   import CommentsUnfilled from "../emotes/CommentsUnfilled.svelte";
   import { recoverUid } from "$lib/Data/postCreation";
-  import { SearchPostByIdLike, useDislike, useLike } from "$lib/Data/getProfileData";
+  import { SearchPostByIdLike, getDataUserForPost, useDislike, useLike } from "$lib/Data/getProfileData";
+  import type { userDataForPostProps } from "$lib/types/userType";
 
-  export let username: string = "";
-  export let userProfile: string = "";
   export let id: string = "";
   export let uidp: string = "";
   export let time: string = "";
-  export let textPost: string = "";
   export let imagePost: string = "";
+  export let textPost: string = "";
   export let like: string[] = [];
   export let dislike: string[] = [];
   export let comments: string[] = [];
 
-  function DoThat() {
-    id = "d";
-  }
+  // permet de recuperer l'uid de l'actuel connecté
+  let userUid: string = ""
+
+  //les données de celui qui a posté
+  let datas : userDataForPostProps;
+  
+  // permet de recuperer  l'image d'un utilisateur
+  let userProfile: string = "";
+  let username: string = ""
 
   // gerer le like
   let likes: string[] = [...like];
@@ -39,10 +44,12 @@
   // gerer le comments
   let boolComments: boolean = false;
 
-  let uid = "";
 
   (async () => {
-    uid = await recoverUid();
+    userUid = await recoverUid()
+     datas = await  getDataUserForPost(uidp)
+    userProfile = datas.faceUrl
+    username = userUid === uidp ? "Me" : datas.username
   })();
 
   let isImagePost = imagePost !== "" ? "h-[80%]" : "";
