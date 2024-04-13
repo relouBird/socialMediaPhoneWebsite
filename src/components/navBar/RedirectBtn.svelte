@@ -1,28 +1,31 @@
 <script lang="ts">
   import { defineNullDatasImage } from "$lib/Data/addImageOnPost";
-  import { uid,currentUser, defineNullStoreDatas } from "$lib/Data/postCreation";
-  import { recoverUid,recoverCurrentUser } from "$lib/Data/postCreation";
+  import {
+    uid,
+    currentUser,
+    defineNullStoreDatas,
+  } from "$lib/Data/postCreation";
+  import { recoverUid, recoverCurrentUser } from "$lib/Data/postCreation";
   import type { user } from "$lib/types/userType";
   import { ROUTES } from "../../config/route";
   export let name: string = "";
   export let link: string = " ";
-  export let handleClick : () => void = ()=>{};
+  export let handleClick: () => void = () => {};
   export let active: boolean = false;
 
-  async function doThat(){
-    uid.set((await recoverUid()) as string)
-    currentUser.set((await recoverCurrentUser()) as user)
-    console.log($uid,$currentUser)
+  async function doThat() {
+    uid.set((await recoverUid()) as string);
+    currentUser.set((await recoverCurrentUser()) as user);
+    console.log($uid, $currentUser);
   }
-
 </script>
 
 <a
   href={link}
-  on:click={()=>{
-    handleClick();  
+  on:click={() => {
+    handleClick();
     doThat();
-    if(link === ROUTES.post_creation){
+    if (link === ROUTES.post_creation) {
       defineNullDatasImage();
       defineNullStoreDatas();
     }
@@ -58,17 +61,21 @@
         stroke-linejoin="round"
       />
     </svg>
-  {:else if name === "Videos"}
+  {:else if name === "Chats"}
     <svg
-      width="23"
-      height="23"
+      width="22"
+      height="22"
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M18 7C18 5.897 17.103 5 16 5H4C2.897 5 2 5.897 2 7V17C2 18.103 2.897 19 4 19H16C17.103 19 18 18.103 18 17V13.667L22 17V7L18 10.333V7ZM16.002 17H4V7H16L16.001 11.999L16 12L16.001 12.001L16.002 17Z"
-        fill="rgba(255,255,255,0.7)"
+        d="M5 18V21.766L6.515 20.857L11.277 18H16C17.103 18 18 17.103 18 16V8C18 6.897 17.103 6 16 6H4C2.897 6 2 6.897 2 8V16C2 17.103 2.897 18 4 18H5ZM4 8H16V16H10.723L7 18.234V16H4V8Z"
+        fill="rgba(255,255,255,0.65)"
+      />
+      <path
+        d="M20 2H8C6.897 2 6 2.897 6 4H18C19.103 4 20 4.897 20 6V14C21.103 14 22 13.103 22 12V4C22 2.897 21.103 2 20 2Z"
+        fill="rgba(255,255,255,0.65)"
       />
     </svg>
   {:else if name === "Create"}
