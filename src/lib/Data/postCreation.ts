@@ -131,8 +131,6 @@ export const postCreation = async (input : string , uid: string, downloadUrlImag
         let postCreationData : postCreationDataProps = {
             uid: uid,
             id: "",
-            nameUser:userSmallData.username,
-            faceUrl: userSmallData.faceUrl,
             text: input,
             url: downloadUrlImage,
             fileType: fileType,
