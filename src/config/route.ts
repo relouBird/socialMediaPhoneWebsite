@@ -8,6 +8,6 @@ export  const ROUTES = {
     other : "/Other",
     profile : "/Profile",
     friends : "/Friends",
-    videos : "/Videos",
+    chat : "/Chat",
     post_creation: "/Post-creation",
 }
