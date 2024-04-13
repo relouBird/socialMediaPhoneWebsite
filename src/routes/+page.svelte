@@ -68,8 +68,6 @@
       <Post
       id={post.id}
       uidp={post.uid}
-      username={post.nameUser === username ? "Me": post.nameUser}
-      userProfile={post.faceUrl}
       time={post.date}
       textPost={post.text}
       imagePost={post.url}
