@@ -27,6 +27,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"firebase": "^10.9.0"
+		"firebase": "^10.9.0",
+		"openai": "^4.0.0"
 	}
 }
