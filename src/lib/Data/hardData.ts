@@ -69,8 +69,8 @@ export const navbarData : navbarDataProps[] = [
     link: ROUTES.friends,
   },
   {
-    name: "Videos",
-    link: ROUTES.videos,
+    name: "Chats",
+    link: ROUTES.chat,
   },
   {
     name: "Create",
