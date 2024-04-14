@@ -1,10 +1,13 @@
 // importations necessaire au fonctionnement de gpt
 import OpenAI from "openai";
+import { config } from "./configure";
 
+
+const apiKey = config.apiKey;
 
 // configuration de base de chat gpt
 const gptConfig = {
-    apiKey : "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",
+    apiKey : apiKey,
     dangerouslyAllowBrowser: true,
     organizationID: "org-I7zcBM8zuxtberNRxA83ngTp",
 }

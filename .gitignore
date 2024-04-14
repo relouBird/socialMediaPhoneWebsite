@@ -4,6 +4,7 @@ node_modules
 /.svelte-kit
 /package
 .env
+/src/lib/ia/configure.ts
 .env.*
 !.env.example
 .vercel
