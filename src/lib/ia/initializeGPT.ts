@@ -3,9 +3,9 @@ import type { CreateChatCompletionRequestMessage } from "openai/resources/chat/i
 import { openai } from "./chatgptInit";
 
 
-export async function Initialize() {
-    const completion = await openai.chat.completions.create({
-      messages: [{ role: "system", content: "Bonjour." }],
+export async function Initialize(username : string) {
+    const completion = await (await openai).chat.completions.create({
+      messages: [{ role: "system", content: "Bonjour moi c'est "+ username+"." }],
       model: "gpt-3.5-turbo",
     });
   
@@ -13,8 +13,8 @@ export async function Initialize() {
   }
 
 
-export async function ContinueConversation(listMessage: CreateChatCompletionRequestMessage[]) {
-  const completion = await openai.chat.completions.create({
+export async function discussConversation(listMessage: CreateChatCompletionRequestMessage[]) {
+  const completion = await (await openai).chat.completions.create({
     messages: [...listMessage],
     model: "gpt-3.5-turbo",
   });

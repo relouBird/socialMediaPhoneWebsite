@@ -5,7 +5,7 @@
 <button
   class="flex justify-center max-sm:scale-75 items-center rounded bg-[rgb(100,100,100)]/80 px-2.5 py-1.5"
   on:click={() => {
-    // signOutUser();
+    signOutUser();
   }}
 >
   <svg

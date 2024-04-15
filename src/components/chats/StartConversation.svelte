@@ -4,9 +4,16 @@
   import { writable, type Writable } from "svelte/store";
   import Image from "../common/Image.svelte";
   import type { conversationDataProps } from "$lib/types/conversationType";
+  import { recoverUid } from "$lib/Data/postCreation";
+  import { getDataUserForPost } from "$lib/Data/getProfileData";
 
   export let uid : string = ""
   export let data : Writable<[string,conversationDataProps]> = writable(["",{id:"",messages: []}])
+
+  let dats = { username: "user", faceUrl: "" };
+  (async () => {
+    dats = await getDataUserForPost(await recoverUid());
+  })();
 
 </script>
 
@@ -19,7 +26,7 @@
             let datas;
            ( async ()=>{
             data.set(["",{id:"",messages: []}])
-            datas = await Initialize()
+            datas = await Initialize(dats.username)
             data.set(await createConversation(uid,datas))
             console.log(datas)
            })();

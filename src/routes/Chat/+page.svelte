@@ -12,8 +12,6 @@
 
   let uid : string = "";
   let allDatas : Writable<[string,conversationDataProps] >= writable(["",{id:"",messages: []}]);
-  let datas : conversationDataProps
-  let isCreated: string = "";
 
   (
     async () =>{
