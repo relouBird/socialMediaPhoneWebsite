@@ -4,7 +4,7 @@ import { openai } from "./chatgptInit";
 
 
 export async function Initialize(username : string) {
-    const completion = await openai.chat.completions.create({
+    const completion = await (await openai).chat.completions.create({
       messages: [{ role: "system", content: "Bonjour moi c'est "+ username+"." }],
       model: "gpt-3.5-turbo",
     });
@@ -14,7 +14,7 @@ export async function Initialize(username : string) {
 
 
 export async function discussConversation(listMessage: CreateChatCompletionRequestMessage[]) {
-  const completion = await openai.chat.completions.create({
+  const completion = await (await openai).chat.completions.create({
     messages: [...listMessage],
     model: "gpt-3.5-turbo",
   });
