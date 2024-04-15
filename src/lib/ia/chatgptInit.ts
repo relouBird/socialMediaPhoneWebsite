@@ -1,6 +1,5 @@
 // importations necessaire au fonctionnement de gpt
 import OpenAI from "openai";
-import { config } from "./configure";
 import { database } from "$lib/Data/firebaseInit";
 import { collection, getDocs } from "firebase/firestore";
 
