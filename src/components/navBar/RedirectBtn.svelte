@@ -16,7 +16,7 @@
   async function doThat() {
     uid.set((await recoverUid()) as string);
     currentUser.set((await recoverCurrentUser()) as user);
-    console.log($uid, $currentUser);
+    // console.log($uid, $currentUser);
   }
 </script>
 

@@ -1,4 +1,4 @@
-import { doc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { database } from "./firebaseInit";
 import type { conversationDataProps } from "$lib/types/conversationType";
 import type { CreateChatCompletionRequestMessage } from "openai/resources/chat/completions.mjs";
@@ -29,4 +29,31 @@ export const createConversation: (
   }
 
   return ["false", conversationCreationData];
+};
+
+
+// la fonction en elle meme qui recuperera la premiere reponse et creera la conversation
+export const continuousConversation: (
+  uid: string,
+  messageList: CreateChatCompletionRequestMessage[]
+) => void = async (uid, messageList) => {
+  // creation de l'objet envoyer pour le post
+  let conversationData: conversationDataProps = {
+    id: uid,
+    messages: [...messageList],
+  };
+
+  try {
+    const docR = doc(database, conversations_collection, `${uid}`);
+    await updateDoc(docR, {
+      messages: conversationData.messages
+    });
+
+    console.log("data fetch " + conversationData.id);
+    // return ["true", conversationData];
+  } catch (error) {
+    console.log("Erreur : " + error);
+  }
+
+  // return ["false", conversationData];
 };

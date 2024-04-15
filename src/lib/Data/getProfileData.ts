@@ -52,7 +52,7 @@ export const getDataUserForPost = async (uid: string) => {
         username: docSnap.data().username,
         faceUrl: docSnap.data().faceUrl,
       };
-      console.log("Document data:", profileData);
+      // console.log("Document data:", profileData);
     } else {
       console.log("No such document!");
     }

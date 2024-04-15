@@ -21,7 +21,6 @@
 
 .navbar-effect {
   height: calc(100% - 3.5em);
-  background-color: white;
 }
 .navbar-effect::-webkit-scrollbar {
   width: 6px;

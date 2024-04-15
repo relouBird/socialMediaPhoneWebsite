@@ -19,7 +19,7 @@ export const conversationDataFetch: (uid: string) => Promise<[string,conversatio
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         profileData = docSnap.data() as conversationDataProps;
-        console.log("Document data:", profileData);
+        // console.log("Document data:", profileData);
         return ["true",profileData]
       } else {
         console.log("No such document!");
